@@ -33,8 +33,8 @@
 
 jobs:
   build_deploy:
-    machine:
-      - image: circleci/classic:latest
+    machine: 
+      image: circleci/classic:latest
     steps:
       - checkout
       - run: cd ./app && npm run build
@@ -51,12 +51,11 @@ jobs:
           arguments: '--dryrun'
           from: build
           to: 's3://ci-cd-example'
-orbs:
-  aws-s3: circleci/aws-s3@2.0.0
-version: 2.1
 
 workflows:
   version: 2.1
+  orbs:
+    aws-s3: circleci/aws-s3@2.0.0
   execute_bulk:
     jobs:
       - build_deploy
