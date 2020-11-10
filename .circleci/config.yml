@@ -53,7 +53,7 @@ jobs:
           to: 's3://ci-cd-example'
 
 workflows:
-  version: 2.1
+  version: 2
   orbs:
     aws-s3: circleci/aws-s3@2.0.0
   execute_bulk:
