@@ -37,23 +37,12 @@ jobs:
       image: circleci/classic:latest
     steps:
       - checkout
+      - run: sudo apt-get update && sudo apt-get install -y python-dev
+      - run: sudo curl -O https://bootstrap.pypa.io/get-pip.py
+      - run: sudo python get-pip.py
+      - run: sudo pip install awscli --upgrade
       - run: cd ./app && npm run build
-      - aws-s3/sync:
-          arguments: |
-            --acl public-read \
-            --cache-control "max-age=86400"
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-region: AWS_REGION
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          from: build
-          to: 's3://ci-cd-example'
-      - aws-s3/copy:
-          arguments: '--dryrun'
-          from: build
-          to: 's3://ci-cd-example'
-
-orbs:
-  aws-s3: circleci/aws-s3@2.0.0
+      - run: aws s3 sync ./app/build s3://ci-cd-example
 
 workflows:
   version: 2
