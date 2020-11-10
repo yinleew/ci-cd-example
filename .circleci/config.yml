@@ -34,10 +34,10 @@
 jobs:
   build_deploy:
     docker:
-      - image: 'cimg/python:3.6'
+      - image: circleci/classic:latest
     steps:
       - checkout
-      - run: sudo apt-get install npm && cd ./app && npm run build
+      - run: cd ./app && npm run build
       - aws-s3/sync:
           arguments: |
             --acl public-read \
