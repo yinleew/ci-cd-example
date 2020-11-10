@@ -1,17 +1,43 @@
-version: 2
-orbs:
-  aws-s3: circleci/aws-s3@2.0.0
+# version: 2
+# orbs:
+#   aws-s3: circleci/aws-s3@2.0.0
+# jobs:
+#   build_deploy:
+#     docker:
+#       image: cimg/python:3.6
+#     steps:
+#       - checkout
+#       - run: 
+#           name: Build and Deploy App
+#           command: |
+#             cd ./app
+#             npm run build
+#       - aws-s3/sync:
+#           arguments: |
+#             --acl public-read \
+#             --cache-control "max-age=86400"
+#           aws-access-key-id: ${AWS_ACCESS_KEY_ID}
+#           aws-region: ${AWS_REGION}
+#           aws-secret-access-key: ${AWS_SECRET_ACCESS_KEY}
+#           from: build
+#           to: 's3://ci-cd-example'
+#       - aws-s3/copy:
+#           arguments: '--dryrun'
+#           from: build
+#           to: 's3://ci-cd-example'  
+# workflows:
+#   version: 2
+#   build_deploy:
+#     jobs:
+#       - build_deploy
+
 jobs:
-  build_deploy:
+  build:
     docker:
-      image: cimg/python:3.6
+      - image: 'cimg/python:3.6'
     steps:
       - checkout
-      - run: 
-          name: Build and Deploy App
-          command: |
-            cd ./app
-            npm run build
+      - run: cd ./app && npm run build
       - aws-s3/sync:
           arguments: |
             --acl public-read \
@@ -24,9 +50,7 @@ jobs:
       - aws-s3/copy:
           arguments: '--dryrun'
           from: build
-          to: 's3://ci-cd-example'  
-workflows:
-  version: 2
-  build_deploy:
-    jobs:
-      - build_deploy
+          to: 's3://ci-cd-example'
+orbs:
+  aws-s3: circleci/aws-s3@x.y
+version: 2.1
