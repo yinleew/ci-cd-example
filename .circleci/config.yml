@@ -32,7 +32,7 @@
 #       - build_deploy
 
 jobs:
-  build:
+  build_deploy:
     docker:
       - image: 'cimg/python:3.6'
     steps:
@@ -42,9 +42,9 @@ jobs:
           arguments: |
             --acl public-read \
             --cache-control "max-age=86400"
-          aws-access-key-id: ${AWS_ACCESS_KEY_ID}
-          aws-region: ${AWS_REGION}
-          aws-secret-access-key: ${AWS_SECRET_ACCESS_KEY}
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-region: AWS_REGION
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           from: build
           to: 's3://ci-cd-example'
       - aws-s3/copy:
@@ -54,3 +54,9 @@ jobs:
 orbs:
   aws-s3: circleci/aws-s3@2.0.0
 version: 2.1
+
+workflows:
+  version: 2.1
+  execute_bulk:
+    jobs:
+      - build_deploy
