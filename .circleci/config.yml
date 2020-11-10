@@ -52,5 +52,5 @@ jobs:
           from: build
           to: 's3://ci-cd-example'
 orbs:
-  aws-s3: circleci/aws-s3@x.y
+  aws-s3: circleci/aws-s3@2.0.0
 version: 2.1
