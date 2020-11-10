@@ -33,8 +33,7 @@
 
 jobs:
   build_deploy:
-    machine: 
-      image: true
+    machine: true
     steps:
       - checkout
       - run: sudo pip install awscli --upgrade
