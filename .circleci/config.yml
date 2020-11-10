@@ -38,7 +38,7 @@ jobs:
     steps:
       - checkout
       - run: sudo pip install awscli --upgrade
-      - run: cd ./app && npm run build
+      - run: cd ./app && npm install & npm run build
       - run: aws s3 sync ./app/build s3://ci-cd-example
 
 workflows:
