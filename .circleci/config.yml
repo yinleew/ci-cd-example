@@ -52,10 +52,11 @@ jobs:
           from: build
           to: 's3://ci-cd-example'
 
+orbs:
+  aws-s3: circleci/aws-s3@2.0.0
+
 workflows:
   version: 2
-  orbs:
-    aws-s3: circleci/aws-s3@2.0.0
   execute_bulk:
     jobs:
       - build_deploy
