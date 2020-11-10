@@ -33,7 +33,9 @@
 
 jobs:
   build_deploy:
-    machine: true
+    machine:
+      node:
+        version: 8.9.4
     steps:
       - checkout
       - run: sudo pip install awscli --upgrade
