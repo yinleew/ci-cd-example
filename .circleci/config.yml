@@ -33,7 +33,7 @@
 
 jobs:
   build_deploy:
-    docker:
+    machine:
       - image: circleci/classic:latest
     steps:
       - checkout
